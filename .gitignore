@@ -1,3 +1,11 @@
+.env
+.local.rc
+
 *.swp
-venv/
+
+__pycache__/
 *.pyc
+*.pyd
+
+venv/
+volumes/
