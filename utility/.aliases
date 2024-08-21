@@ -1,0 +1,5 @@
+alias docker-local="docker-compose -f docker-compose-local.yml"
+
+alias db-shell="bash /home/jeremy/Programming/gift-tracker/utility/db_shell.sh"
+alias db-import="bash /home/jeremy/Programming/gift-tracker/utility/db_import.sh"
+alias web-shell="bash /home/jeremy/Programming/gift-tracker/utility/web_shell.sh"

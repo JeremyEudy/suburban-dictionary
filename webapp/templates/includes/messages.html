@@ -1,0 +1,22 @@
+{% load parsing_tags %}
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissable fade show" role="alert" id="alert_message">
+    <div class="alert-container row">
+    <div class="col-auto">{{ message.message | safe }}</div>
+    {% if "Transaction saved" in message.message %}
+    <form id="undo-form" action="{% url 'undo_transaction' %}" method="post" class="col-auto">
+        {% csrf_token %}
+        <button type="submit" form="undo-form" class="btn undo">Undo</button>
+    </form>
+    {% endif %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endfor %}
+<script>
+    window.setTimeout(function() {
+          $("#alert_message").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+                });
+    }, 3000);
+</script>

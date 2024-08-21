@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'includes/head.html' %}
+
+    {% block link %}{% endblock link %}
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% block head %}{% endblock head %}
+<style>
+{% block style %}{% endblock style %}
+body {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.jumbotron {
+    max-width: 100%;
+    margin: auto;
+    margin-top: 50px;
+    min-height: 60%;
+}
+
+.page_header {
+    color: #ffffff;
+}
+
+#container {
+    position: relative;
+    min-height: 100%;
+}
+
+#body {
+    padding-bottom: 150px;
+    width: 100%;
+    margin: auto;
+    position: relative
+}
+
+#footer {
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+</style>
+</head>
+<body data-bs-theme="dark">
+    <div id="container">
+        <section id="header">
+        {% include 'includes/nav.html' %}
+        {% include 'includes/messages.html' %}
+        </section>
+
+        <section id="body">
+            <div class="container jumbotron">
+                {% block jumbo_header %}{% endblock jumbo_header %}
+                {% block content %}{% endblock content %}
+            </div>
+        </section>
+
+        <section id="footer">
+        {% include 'includes/footer.html' %}
+        </section>
+    </div>
+
+    <script>
+        {% block script %}{% endblock script %}
+    </script>
+</body>
+
+</html>

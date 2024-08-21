@@ -1,0 +1,36 @@
+services:
+  web:
+    build: .
+    container_name: suburban_dictionary_web
+    working_dir: /opt/services/web/src/webapp/
+    command: bash -c "python manage.py collectstatic --noinput --clear && gunicorn --chdir webapp --bind :80 webapp.wsgi:application"
+    volumes:
+      - .:/opt/services/web/src
+      - ./volumes/static:/opt/services/web/static
+      - ./volumes/media:/opt/services/web/src/webapp/media
+    depends_on:
+      - db
+    restart: unless-stopped
+    env_file: .env
+
+  nginx:
+    image: nginx:latest
+    container_name: suburban_dictionary_nginx
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./volumes/media_volume:/opt/services/web/media
+      - ./volumes/static_volume:/opt/services/web/static
+    depends_on:
+      - web
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+
+  db:
+    image: postgres:latest
+    env_file:
+      - .env
+    container_name: suburban_dictionary_db
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
